@@ -39,17 +39,20 @@ public class EchoServer {
                     .localAddress(new InetSocketAddress(port))
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
-                        public void initChannel(SocketChannel ch) throws Exception {
-                            ch.pipeline().addLast(serverHandler);
+                        public void initChannel(SocketChannel ch) {
+                            ch.pipeline()
+                                    .addLast(serverHandler);
                         }
                     });
 
-            ChannelFuture f = b.bind().sync();
-            System.out.println(EchoServer.class.getName() +
-                    " started and listening for connections on " + f.channel().localAddress());
-            f.channel().closeFuture().sync();
+            ChannelFuture f = b.bind()
+                    .sync();
+            System.out.println(EchoServer.class.getName() + " started and listening for connections on " + f.channel().localAddress());
+            f.channel().closeFuture()
+                    .sync();
         } finally {
-            group.shutdownGracefully().sync();
+            group.shutdownGracefully()
+                    .sync();
         }
     }
 }
