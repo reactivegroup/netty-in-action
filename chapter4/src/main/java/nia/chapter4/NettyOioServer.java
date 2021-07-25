@@ -18,6 +18,10 @@ import java.nio.charset.Charset;
  */
 public class NettyOioServer {
 
+    public static void main(String[] args) throws Exception {
+        new NettyOioServer().server(9000);
+    }
+
     public void server(int port) throws Exception {
         final ByteBuf buf = Unpooled.unreleasableBuffer(Unpooled.copiedBuffer("Hi!\r\n", Charset.forName("UTF-8")));
         EventLoopGroup group = new OioEventLoopGroup();
